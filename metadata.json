@@ -1,0 +1,7 @@
+{
+  "name": "Propertyfie AI - Strategic Asset Auditor",
+  "description": "An immersive real estate platform featuring high-conversion asset auditing and neural search navigation.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
