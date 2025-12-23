@@ -34,34 +34,26 @@ export const generateKaagzaat = async ({ property, userName, userPhone, userArea
     const drawLogo = (x: number, y: number, size: number) => {
         const s = size / 100; // Scale factor
         
-        // Draw Logo Background Box (Subtle glass effect)
-        doc.setFillColor(Colors.white[0], Colors.white[1], Colors.white[2], 0.05);
+        // Draw Logo Background Box (Solid Slate for clarity)
+        doc.setFillColor(Colors.slate800[0], Colors.slate800[1], Colors.slate800[2]);
         doc.roundedRect(x - 2, y - 2, size + 4, size + 4, 1.5, 1.5, 'F');
         
         doc.setDrawColor(Colors.orange300[0], Colors.orange300[1], Colors.orange300[2]);
         doc.setLineWidth(0.6);
 
-        // Path 1: M30,20 Q45,55 35,85
-        doc.lines(
-            [[ (45-30)*s, (55-20)*s, (35-30)*s, (85-20)*s ]], 
-            x + 30*s, y + 20*s, [1, 1], 'S'
-        );
+        // Path 1: M30,20 Q45,55 35,85 (Approx Q with C)
+        doc.moveTo(x + 30 * s, y + 20 * s);
+        doc.curveTo(x + 45 * s, y + 55 * s, x + 45 * s, y + 55 * s, x + 35 * s, y + 85 * s);
+        doc.stroke();
 
         // Path 2: M40,30 C75,10 90,55 45,60
-        // doc.curveTo(cp1x, cp1y, cp2x, cp2y, x, y)
-        // jspdf lines doesn't support easy Bezier curves in one go, using raw API if available or approximations
-        // For simplicity and accuracy in PDF, we'll use specific jspdf bezier calls
-        
-        // Re-drawing Path 2 with curveTo
-        // Start at 40,30
-        const p2Start = [x + 40*s, y + 30*s];
-        doc.moveTo(p2Start[0], p2Start[1]);
-        doc.curveTo(x+75*s, y+10*s, x+90*s, y+55*s, x+45*s, y+60*s);
+        doc.moveTo(x + 40 * s, y + 30 * s);
+        doc.curveTo(x + 75 * s, y + 10 * s, x + 90 * s, y + 55 * s, x + 45 * s, y + 60 * s);
         doc.stroke();
 
         // Path 3: M20,70 Q55,55 85,80
-        doc.moveTo(x + 20*s, y + 70*s);
-        doc.curveTo(x+55*s, y+55*s, x+55*s, y+55*s, x+85*s, y+80*s); // Q approximated with C
+        doc.moveTo(x + 20 * s, y + 70 * s);
+        doc.curveTo(x + 55 * s, y + 55 * s, x + 55 * s, y + 55 * s, x + 85 * s, y + 80 * s);
         doc.stroke();
     };
 
